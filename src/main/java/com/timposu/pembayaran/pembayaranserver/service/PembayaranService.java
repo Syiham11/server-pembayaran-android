@@ -6,6 +6,8 @@ import com.timposu.pembayaran.pembayaranserver.entity.Produk;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,5 +31,13 @@ public class PembayaranService {
         data.put("content", "produk");
 
         fcmService.kirimFcmMessage("/topics/produk", data);
+    }
+
+    public Page<Produk> semuaProduk(Pageable page) {
+        return produkDao.findAll(page);
+    }
+
+    public Long countAllProduk() {
+        return produkDao.count();
     }
 }
